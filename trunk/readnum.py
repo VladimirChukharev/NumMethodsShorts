@@ -35,7 +35,7 @@ class ReadNumber:
                             (?P<value>\d+)   # digits
                             (?P<dot>\.?)     # optional dot
                             (?P<mantissa>\d*)  # digits
-                            (?P<periodic>(\(\d+\))?)  # optional periodic part
+                            (?P<periodic>(?P<lpar>\()\d+(?P<rpar>\)))?  # optional periodic part
                             (?P<rest>.*)           # should be empty for just a rational number
                         """, re.X),
                     f=re.compile(r"""
