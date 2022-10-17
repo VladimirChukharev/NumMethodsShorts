@@ -47,6 +47,7 @@ class ReadNumber:
                             (?P<exp>[eE][-+]?\d+)  # optional exponent part
                             (?P<rest>.*)           # should be empty for a float number
                         """, re.X))
+    indexes = ("sign", "zeros", "value", "dot", "mantissa", "periodic", "lpar", "rpar", "exp", "rest")
 
 
 def main():
@@ -55,9 +56,7 @@ def main():
         for name, pattern in ReadNumber.patterns.items():
             print(f"{name=}")
             if match_object := pattern.match(text):
-                print(f"For {text=}: {name} =>> {match_object=}.")
-                # print(f"For {text=}: {match_object.group('sign')=}, {match_object.group('zeros')=}, "
-                #       f"{match_object.group('value')=}, {match_object.group('rest')=}.")
+                print(f"For {text=}: {name} =>> {match_object.groupdict()=}.")
 
 
 if __name__ == "__main__":
