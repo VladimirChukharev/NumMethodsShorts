@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
+#
+# https://hub.gke2.mybinder.org/user/numpy-numpy-tutorials-yne4ot5m/lab/tree/content/Untitled.ipynb
 
 """Find Lagrange polynomial for given sets of points"""
 
