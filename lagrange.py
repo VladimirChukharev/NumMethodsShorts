@@ -2,6 +2,7 @@
 # -*- coding: utf8 -*-
 #
 # https://mybinder.org/v2/gh/VladimirChukharev/NumMethodsShorts/HEAD
+# https://mybinder.org/v2/gh/VladimirChukharev/NumMethodsShorts/01db198cd4ad842db03cc5fe174f3d7d92770897?urlpath=lab%2Ftree%2Flagrange.ipynb
 
 """Find Lagrange polynomial for given sets of points"""
 
