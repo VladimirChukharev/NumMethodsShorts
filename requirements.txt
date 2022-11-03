@@ -2,3 +2,4 @@ setuptools
 matplotlib
 numpy
 scipy
+sympy
