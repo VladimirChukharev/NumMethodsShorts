@@ -16,41 +16,56 @@ import numpy as np
 # import sympy as sp
 
 
-def l_rectangles(x: np.ndarray, y: np.ndarray) -> float:
+def l_rectangles(y: np.ndarray, dx: float) -> float:
     """Integrate using left rectangles method"""
-    dx: float = x[1] - x[0]
-    s: float = y[0:-1].sum() * dx
+    s: float = y[:-1].sum() * dx
     return s
 
 
-def r_rectangles(x: np.ndarray, y: np.ndarray) -> float:
+def r_rectangles(y: np.ndarray, dx: float) -> float:
     """Integrate using right rectangles method"""
-    dx: float = x[1] - x[0]
     s: float = y[1:].sum() * dx
     return s
 
 
-def m_rectangles(x: np.ndarray, y: np.ndarray) -> float:
-    """Integrate using right rectangles method"""
-    dx: float = x[1] - x[0]
+def m_rectangles(y: np.ndarray, dx: float) -> float:
+    """Integrate using middle rectangles method"""
     s: float = y.sum() * dx
+    return s
+
+
+def simpson(y: np.ndarray, dx: float) -> float:
+    """Integrate using Simpson's method. dx is length of the 3-point segments."""
+    n: int = len(y)
+    if not n % 2:
+        print(f"Even number of points is not recommended, use odd number of them: simpson({y}, {dx}).")
+    s: float = (y[0] + y[-1] + y[1::2].sum() * 4.0 + y[2:-1:2].sum() * 2.0) * dx / 6.0
     return s
 
 
 def main() -> None:
     """Do the job"""
 
-    a, b = 0.0, 1.0
-    n = 911
-    x = np.linspace(a, b, n)
-    y = np.exp(x)
-    shift = (x[0] + x[1]) / 2.0
-    y_shifted = np.exp(x[:-1] + shift)
-    print(f"{x=}, {y=}, {y_shifted=}.")
-    s_lrec = l_rectangles(x, y)
-    s_rrec = r_rectangles(x, y)
-    s_mrec = m_rectangles(x, y_shifted)
-    print(f"{s_lrec=}, {s_rrec=}, {s_mrec=}.")
+    # a, b = 0.0, 1.0
+    # n = 911
+    a, b = 1.0, 2.0
+    n = 1
+    n_plus_1 = n + 1
+    x, dx = np.linspace(a, b, n_plus_1, retstep=True)
+    shift = dx / 2.0
+    x_s = np.linspace(a, b, 2 * n_plus_1 - 1)
+    # y = np.exp(x)
+    # y_shifted = np.exp(x[:-1] + shift)
+    # y_simpson = np.exp(x_s)
+    y = 1.0 / x
+    y_shifted = 1.0 / (x[:-1] + shift)
+    y_simpson = 1.0 / x_s
+    print(f"{x=}, {y=}, {y_shifted=}, {y_simpson=}.")
+    s_lrec = l_rectangles(y, dx)
+    s_rrec = r_rectangles(y, dx)
+    s_mrec = m_rectangles(y_shifted, dx)
+    s_simpson = simpson(y_simpson, dx)
+    print(f"{s_lrec=}, {s_rrec=}, {s_mrec=}, {s_simpson=}.")
 
 
 if __name__ == "__main__":
