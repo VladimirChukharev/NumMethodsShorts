@@ -31,9 +31,9 @@ def main() -> None:
     s = sp.simplify(sp.integrate(f, (x, a, b)))
     res = sp.simplify(s - (f0 + 4 * f1 + f2) * h / 3)
 
-    print(dir(res))
+    print(dir())
     for item in x, x0, h, a0, a1, a2, a, b, c, f, f0, f1, f2, fd, s, res:
-        print(f"{item=}, {item.__class__.__name__=}, {item.expand()=}.")
+        print(f"{item} = {item.expand()}.")
 
 
 if __name__ == "__main__":
