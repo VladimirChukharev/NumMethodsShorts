@@ -28,8 +28,8 @@ def main() -> None:
 
     poly = lagrange(x, y)
     coefficients = Polynomial(poly.coef[::-1]).coef
-    txt = (f"${coefficients[0]:g} + " +
-           " + ".join((f"{c:g} \\cdot x^{e + 1}" for e, c in enumerate(coefficients[1:]))) + "$")
+    txt: str = (f"${coefficients[0]:g} + " +
+                " + ".join((f"{c:g} \\cdot x^{e + 1}" for e, c in enumerate(coefficients[1:]))) + "$")
     x_new = np.arange(-1.1, 2.11, 0.1)
     plt.scatter(x, y, label='data')
     plt.plot(x_new, Polynomial(poly.coef[::-1])(x_new), label=txt, linestyle="-.")

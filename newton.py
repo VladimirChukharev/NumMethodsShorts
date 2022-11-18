@@ -59,8 +59,8 @@ def main() -> None:
     # y, title = x ** 4, "$x^4$"
 
     coefficients = _poly_newton_coefficient(x, y)
-    txt = (f"${coefficients[0]:g} + " +
-           " + ".join((f"{c:g} \\cdot x^{e + 1}" for e, c in enumerate(coefficients[1:]))) + "$")
+    txt: str = (f"${coefficients[0]:g} + " +
+                " + ".join((f"{c:g} \\cdot x^{e + 1}" for e, c in enumerate(coefficients[1:]))) + "$")
     x_new = np.arange(-1.1, 2.11, 0.1)
     plt.scatter(x, y, label='data')
     plt.plot(x_new, newton_polynomial(x, y, x_new), label=txt, linestyle=":")

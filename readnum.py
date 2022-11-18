@@ -35,7 +35,7 @@ class ReadNumber:
                             (?P<value>\d+)   # digits
                             (?P<dot>\.?)     # optional dot
                             (?P<mantissa>\d*)  # digits
-                            (?P<periodic>(?P<lpar>\()\d+(?P<rpar>\)))?  # optional periodic part
+                            (?P<periodic>(?P<left>\()\d+(?P<right>\)))?  # optional periodic part
                             (?P<rest>.*)           # should be empty for just a rational number
                         """, re.X),
                     f=re.compile(r"""
@@ -47,7 +47,7 @@ class ReadNumber:
                             (?P<exp>[eE][-+]?\d+)  # optional exponent part
                             (?P<rest>.*)           # should be empty for a float number
                         """, re.X))
-    indexes = ("sign", "zeros", "value", "dot", "mantissa", "periodic", "lpar", "rpar", "exp", "rest")
+    indexes = ("sign", "zeros", "value", "dot", "mantissa", "periodic", "left", "right", "exp", "rest")
 
 
 def main():
