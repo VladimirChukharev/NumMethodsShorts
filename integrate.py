@@ -53,13 +53,19 @@ def simpson_3_8(y: np.ndarray, dx: float) -> float:
     return s
 
 
+def func(x: np.ndarray) -> np.ndarray:
+    """Function to integrate"""
+    abs_x: np.ndarray = np.abs(x)
+    return np.abs((abs_x - 1.0) ** 3 * (abs_x * 3 + 1.0) / 12.0)
+
+
 def main() -> None:
     """Do the job"""
 
     # a, b = 0.0, 1.0
     # n = 911
-    a, b = 1.0, 2.0
-    n = 1
+    a, b = -1.0, 1.0
+    n = 200
     n_plus_1 = n + 1
     x, dx = np.linspace(a, b, n_plus_1, retstep=True)
     shift = dx / 2.0
@@ -68,10 +74,16 @@ def main() -> None:
     # y = np.exp(x)
     # y_shifted = np.exp(x[:-1] + shift)
     # y_simpson = np.exp(x_s)
-    y = 1.0 / x
-    y_shifted = 1.0 / (x[:-1] + shift)
-    y_simpson = 1.0 / x_s
-    y_simp38 = 1.0 / x_s38
+
+    # y = 1.0 / x
+    # y_shifted = 1.0 / (x[:-1] + shift)
+    # y_simpson = 1.0 / x_s
+    # y_simp38 = 1.0 / x_s38
+
+    y: np.ndarray = func(x)
+    y_shifted: np.ndarray = func(x[:-1] + shift)
+    y_simpson: np.ndarray = func(x_s)
+    y_simp38: np.ndarray = func(x_s38)
     print(f"{n=}.")
     print(f"{x=} :{len(x)},\n{x_s=} :{len(x_s)},\n{x_s38=} :{len(x_s38)}.")
     print(f"{y=} :{len(y)},\n{y_shifted=} :{len(y_shifted)},\n"
