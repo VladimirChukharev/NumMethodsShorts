@@ -9,7 +9,7 @@ from typing import Callable
 
 
 def func1(x: float) -> float:
-    """(x - x0) ** 3: Test function to dissect to find its root"""
+    """(x - x0) ** 3: Test function to bisect to find its root"""
     x0: float = 9.0
     return (x - x0) ** 3
 
@@ -36,8 +36,8 @@ def gen_x_random(left: float, right: float) -> float:
     return uniform(left, right)
 
 
-def dissect(fun: Callable[[float], float], low: float, high: float, tolerance: float = 1e-9,
-            gen_x: Callable[[float, float], float] = None) -> (float, int):
+def bisect(fun: Callable[[float], float], low: float, high: float, tolerance: float = 1e-9,
+           gen_x: Callable[[float, float], float] = None) -> (float, int):
     """Binary dissection method of finding a root on the given segment"""
     if gen_x is None:
         gen_x = gen_x_middle
@@ -51,7 +51,7 @@ def dissect(fun: Callable[[float], float], low: float, high: float, tolerance: f
     if abs(f_right) <= tolerance:
         return high
     if same_sign(f_left, f_right):
-        raise ValueError(f"Error in dissect({fun}, {low}, {high}, {tolerance}): {f_left=} {f_right=} "
+        raise ValueError(f"Error in bisect({fun}, {low}, {high}, {tolerance}): {f_left=} {f_right=} "
                          f"same sign on both ends.")
     x_new: float = gen_x(x_left, x_right)
     f_new: float = fun(x_new)
@@ -80,9 +80,9 @@ if __name__ == "__main__":
     finish: float = 100.0
     accuracy: float = 1e-6
     result: float
-    result, cnt = dissect(func, start, finish, accuracy)
-    print(f"dissect({func.__doc__.split(':')[0]}, {start}, {finish}) = {result}; {cnt=}.")
-    result, cnt = dissect(func, start, finish, accuracy, gen_x_random)
-    print(f"dissect({func.__doc__.split(':')[0]}, {start}, {finish}) = {result}; {cnt=} random.")
-    result, cnt = dissect(func, start, finish, accuracy, gen_x_golden)
-    print(f"dissect({func.__doc__.split(':')[0]}, {start}, {finish}) = {result}; {cnt=} golden.")
+    result, cnt = bisect(func, start, finish, accuracy)
+    print(f"bisect({func.__doc__.split(':')[0]}, {start}, {finish}) = {result}; {cnt=}.")
+    result, cnt = bisect(func, start, finish, accuracy, gen_x_random)
+    print(f"bisect({func.__doc__.split(':')[0]}, {start}, {finish}) = {result}; {cnt=} random.")
+    result, cnt = bisect(func, start, finish, accuracy, gen_x_golden)
+    print(f"bisect({func.__doc__.split(':')[0]}, {start}, {finish}) = {result}; {cnt=} golden.")
