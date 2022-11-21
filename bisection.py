@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 
-"""Find function root by dissection."""
-from random import uniform
-from scipy.constants import golden
+"""Find function root by bisection."""
 
+from random import uniform
 from typing import Callable
+
+from scipy.constants import golden
 
 
 def func1(x: float) -> float:
