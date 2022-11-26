@@ -47,10 +47,6 @@ def bisect(fun: Callable[[float], float], low: float, high: float, tolerance: fl
     x_right: float = high
     f_left: float = fun(x_left)
     f_right: float = fun(x_right)
-    if abs(f_left) <= tolerance:
-        return low
-    if abs(f_right) <= tolerance:
-        return high
     if same_sign(f_left, f_right):
         raise ValueError(f"Error in bisect({fun}, {low}, {high}, {tolerance}): {f_left=} {f_right=} "
                          f"same sign on both ends.")
