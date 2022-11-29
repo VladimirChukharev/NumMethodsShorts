@@ -48,15 +48,14 @@ def bisect(fun: Callable[[float], float], low: float, high: float, tolerance: fl
     f_left: float = fun(x_left)
     f_right: float = fun(x_right)
     if same_sign(f_left, f_right):
-        raise ValueError(f"Error in bisect({fun}, {low}, {high}, {tolerance}): {f_left=} {f_right=} "
-                         f"same sign on both ends.")
+        raise ValueError(f"Error in bisect({fun}, {low}, {high}, {tolerance}): {f_left=} {f_right=} no sign change.")
     x_new: float = gen_x(x_left, x_right)
-    f_new: float = fun(x_new)
     count: int = 0
     while abs(x_right - x_left) >= tolerance:
-        # print(f"{count=}, {x_right-x_left=}.")
-        # print(f"x:{' ' * 4} {x_left:18.12g} {x_new:18.12g} {x_right:18.12g}.")
-        # print(f"f:{' ' * 4} {f_left:18.12g} {f_new:18.12g} {f_right:18.12g}.")
+        f_new = fun(x_new)
+        print(f"{count=}, {x_right-x_left=}.")
+        print(f"x:  {x_left:18.12g} {x_new:18.12g} {x_right:18.12g}.")
+        print(f"f:  {f_left:18.12g} {f_new:18.12g} {f_right:18.12g}.\n")
         if same_sign(f_new, f_left):
             x_left, f_left = x_new, f_new
         elif same_sign(f_new, f_right):
@@ -64,9 +63,9 @@ def bisect(fun: Callable[[float], float], low: float, high: float, tolerance: fl
         else:
             raise RuntimeError(f"\nx: {x_left:18.12g} {x_new:18.12g} {x_right:18.12g}."
                                f"\ny: {f_left:18.12g} {f_new:18.12g} {f_right:18.12g}.")
-        count += 1
         x_new = gen_x(x_left, x_right)
-        f_new = fun(x_new)
+        count += 1
+    print(f"{[(var, getattr(val, '__annotations__', '')) for var, val in vars().items()]}")
     return x_new, count
 
 
