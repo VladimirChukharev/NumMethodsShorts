@@ -21,20 +21,29 @@ def main() -> None:
     # x = np.array([-1, 0, 1, 2])
     # x = np.array([0, 1, 2])
     # x = np.array([0, 1, 2, 1.5])
-    x = np.array([-1, 0, 1, 2, 1.5])
+    # x = np.array([-1, 0, 1, 2, 1.5])
+    x = np.array([0.05, 0.1, 0.15, 0.2, 0.25])
 
-    y, title = x ** 3, "$x^3$"
+    # y, title = x ** 3, "$x^3$"
     # y, title = x ** 4, "$x^4$"
+    # 0.05004, 0.10033, 0.17165, 0.25534, 0.30933
+    y, title = np.array([0.05004, 0.10033, 0.17165, 0.25534, 0.30933]), ""
+    points = 5
 
-    poly = lagrange(x, y)
-    coefficients = Polynomial(poly.coef[::-1]).coef
+    poly = lagrange(x[0:points], y[0:points])
+    polynomial = Polynomial(poly.coef[::-1])
+    coefficients = polynomial.coef
     txt: str = (f"${coefficients[0]:g} + " +
-                " + ".join((f"{c:g} \\cdot x^{e + 1}" for e, c in enumerate(coefficients[1:]))) + "$")
-    x_new = np.arange(-1.1, 2.11, 0.1)
-    plt.scatter(x, y, label='data')
-    plt.plot(x_new, Polynomial(poly.coef[::-1])(x_new), label=txt, linestyle="-.")
+                " + ".join((f"{c:.5g} \\cdot x^{e + 1}" for e, c in enumerate(coefficients[1:]))) + "$")
+    # x_new = np.arange(-1.1, 2.11, 0.1)
+    x_new = np.arange(-0.05, 0.35, 0.005)
+    plt.scatter(x, y, label=f"data {polynomial(0.12)=:.6g}")
+    plt.plot(x_new, polynomial(x_new), label=txt, linestyle="-.")
     plt.legend()
-    plt.title(f"{title}: {list((xi, yi) for xi, yi in zip(x, y))}.")
+    # plt.title(f"{title}: {''.join(str((xi, yi)) for xi, yi in zip(x, y))}.")
+    # plt.title(f"{''.join(str((xi, yi)) for xi, yi in zip(x, y))}.")
+    plt.title(' '.join((f"{xi:15.2g}" for xi in x)) + "\n" +
+              ' '.join((f"{yi:12.6g}" for yi in y)))
     plt.show()
 
 
