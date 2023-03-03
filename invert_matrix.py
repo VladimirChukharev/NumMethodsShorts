@@ -98,7 +98,7 @@ if __name__ == '__main__':
     # ])
     matrixA: ndarray = np.array([
         [6.0, 2.0, 1.0],
-        [7.0, 3.0, -8.0],
+        [7.0, 4.0, -8.0],
         [-0.5, -0.5, -4.5],
     ])
     mat0: ndarray = matrixA.copy()
