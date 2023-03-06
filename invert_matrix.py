@@ -51,7 +51,6 @@ def invert(mat: ndarray, row_order: ndarray, col_order: ndarray) -> (ndarray, nd
     rows_l: int = len(mat)
     cols_l: int = len(mat[0])
     assert rows_l == cols_l and all((cols_l == len(row_l) for row_l in mat[1:])), f"{rows_l=}, {cols_l=}, {mat=}."
-    mat_0: ndarray = mat.copy()
     mat_inv: ndarray = np.eye(rows_l)
     for k in range(rows_l):
         # print(f"Before: {mat=}.\n{mat_inv=}.")
