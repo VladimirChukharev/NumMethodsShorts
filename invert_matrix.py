@@ -32,11 +32,8 @@ def find_pivot(ind: int, matrix: ndarray) -> [int, int, float]:
 
 def swap_rows(ind1: int, ind2: int, matrix: ndarray, inverse: ndarray, order: ndarray) -> None:
     """Exchange the values in the given rows_l of both the matrices"""
-    # print(f"Before: {matrix}, {ind1}, {ind2}.")
     if ind1 != ind2:
-        # tmp = matrix[ind1].copy()
         matrix[ind1], matrix[ind2] = matrix[ind2].copy(), matrix[ind1].copy()
-        # tmp = inverse[ind1].copy()
         inverse[ind1], inverse[ind2] = inverse[ind2].copy(), inverse[ind1].copy()
         order[ind1], order[ind2] = order[ind2], order[ind1]
 
@@ -44,12 +41,9 @@ def swap_rows(ind1: int, ind2: int, matrix: ndarray, inverse: ndarray, order: nd
 def swap_cols(ind1: int, ind2: int, matrix: ndarray, inverse: ndarray, order: ndarray) -> None:
     """Exchange the values in the given colons of both the matrices"""
     if ind1 != ind2:
-        # tmp = matrix[..., ind1].copy()
         matrix[..., ind1], matrix[..., ind2] = matrix[..., ind2].copy(), matrix[..., ind1].copy()
-        # tmp = inverse[..., ind1].copy()
         inverse[..., ind1], inverse[..., ind2] = inverse[..., ind2].copy(), inverse[..., ind1].copy()
         order[ind1], order[ind2] = order[ind2], order[ind1]
-    # print(f"After: {matrix}.")
 
 
 def invert(mat: ndarray, row_order: ndarray, col_order: ndarray) -> (ndarray, ndarray, ndarray):
@@ -60,7 +54,7 @@ def invert(mat: ndarray, row_order: ndarray, col_order: ndarray) -> (ndarray, nd
     mat_0: ndarray = mat.copy()
     mat_inv: ndarray = np.eye(rows_l)
     for k in range(rows_l):
-        print(f"Before: {mat=}.\n{mat_inv=}.")
+        # print(f"Before: {mat=}.\n{mat_inv=}.")
         pivot: float  # = matrix[k, k]
         col, row, pivot = find_pivot(k, mat)
         swap_rows(row, k, mat, mat_inv, row_order)
@@ -78,16 +72,16 @@ def invert(mat: ndarray, row_order: ndarray, col_order: ndarray) -> (ndarray, nd
             mat_inv[r, :] -= mrk * mat_inv[k, :]
             mat[r, :] -= mrk * mat[k, :]
         print(f"After: {mat=}.\n{mat_inv=}.")
-    print(f"{mat=}.")
-    print(f"{mat_inv=}.")
-    print(f"{row_order=}.")
-    print(f"{col_order=}.\n")
-    print(f"{np.matmul(mat_inv, mat_0)=}.")
+    # print(f"{mat=}.")
+    # print(f"{mat_inv=}.")
+    # print(f"{row_order=}.")
+    # print(f"{col_order=}.\n")
+    # print(f"{np.matmul(mat_inv, mat_0)=}.")
     for i, j in enumerate(row_order):
         swap_rows(i, j, mat, mat_inv, row_order)
     for i, j in enumerate(col_order):
         swap_cols(i, j, mat, mat_inv, col_order)
-    print(f"{np.matmul(mat_inv, mat_0)=}.")
+    # print(f"{np.matmul(mat_inv, mat_0)=}.")
     return mat_inv
 
 
@@ -96,15 +90,23 @@ if __name__ == '__main__':
     #     [8.0, 1.0],
     #     [1.0, 8.0],
     # ])
+    # matrixA: ndarray = np.array([
+    #     [6.0, 2.0, 1.0],
+    #     [4.0, 4.0, -8.0],
+    #     [-1.0, 1.0, -5.0],
+    # ])
     matrixA: ndarray = np.array([
-        [6.0, 2.0, 1.0],
-        [7.0, 4.0, -8.0],
-        [-0.5, -0.5, -4.5],
+        [10.0, 1.0, 3.0],
+        [4.0, 8.0, 1.0],
+        [2.0, 2.0, 6.0],
     ])
+    vec_b = np.array((2.0, 2.0, 2.0))
     mat0: ndarray = matrixA.copy()
+    print(f"{np.linalg.inv(matrixA)=}")
     rows, columns = len(matrixA), len(matrixA[0])
     row_ord, columns_ord = np.arange(rows), np.arange(columns)
     matrixA_inv: ndarray = invert(matrixA, row_ord, columns_ord)
+    vec_x = np.matmul(matrixA_inv, vec_b)
     print(f"{matrixA=}.")
     print(f"{matrixA_inv=}.")
     print(f"{row_ord=}.")
@@ -112,9 +114,6 @@ if __name__ == '__main__':
 
     print(f"{mat0=}.")
     print(f"{np.matmul(matrixA_inv, mat0)=}.")
-    print(f"{np.dtype=}, {np.dtype.type=}, {matrixA_inv.dtype.type=}, {mat0[0, 0].dtype=}.")
-    # m_inv: ndarray = np.array([
-    #     [8.0 / 63.0, -1.0 / 63.0],
-    #     [-1.0 / 63.0, 8.0 / 63.0]])
-    # print(f"{m_inv=}.")
-    # print(f"{np.matmul(m_inv, mat0)=}.")
+    print(f"{vec_x=}.")
+    print(f"{np.matmul(mat0, vec_x)=}.")
+    # print(f"{np.dtype=}, {np.dtype.type=}, {matrixA_inv.dtype.type=}, {mat0[0, 0].dtype=}.")
