@@ -4,6 +4,7 @@
 """Python Script"""
 
 import numpy as np
+from numpy import ndarray
 
 if __name__ == "__main__":
     # Начальные данные
@@ -20,7 +21,7 @@ if __name__ == "__main__":
     # Переходим к задаче с симметричной матрицей
     m1t = m1.transpose()
     matA = np.matmul(m1, m1t)
-    vec_b = np.matmul(m1t, vec_v1)
+    vec_b: ndarray = np.matmul(m1t, vec_v1)
 
     # Проверка точным методом в задаче с симметричной матрицей
     matA_inv = np.linalg.inv(matA)
@@ -86,7 +87,7 @@ if __name__ == "__main__":
     resMPI = np.matmul(matA, vec_x)
     nevMPI = resMPI - vec_b
     norm_nevMPI = np.linalg.norm(nevMPI)
-    print(f"{k+1}: {vec_x=}")
+    print(f"{k + 1}: {vec_x=}")
     print(f"{resMPI=}")
     print(f"{nevMPI=}")
     print(f"{norm_nevMPI=}")
