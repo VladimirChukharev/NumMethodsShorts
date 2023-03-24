@@ -53,9 +53,9 @@ def bisect(fun: Callable[[float], float], low: float, high: float, tolerance: fl
     count: int = 0
     while abs(x_right - x_left) >= tolerance:
         f_new = fun(x_new)
-        print(f"{count=}, {x_right-x_left=}.")
-        print(f"x:  {x_left:18.12g} {x_new:18.12g} {x_right:18.12g}.")
-        print(f"f:  {f_left:18.12g} {f_new:18.12g} {f_right:18.12g}.\n")
+        # print(f"{count=}, {x_right-x_left=}.")
+        # print(f"x:  {x_left:18.12g} {x_new:18.12g} {x_right:18.12g}.")
+        # print(f"f:  {f_left:18.12g} {f_new:18.12g} {f_right:18.12g}.\n")
         if same_sign(f_new, f_left):
             x_left, f_left = x_new, f_new
         elif same_sign(f_new, f_right):
@@ -65,7 +65,7 @@ def bisect(fun: Callable[[float], float], low: float, high: float, tolerance: fl
                                f"\ny: {f_left:18.12g} {f_new:18.12g} {f_right:18.12g}.")
         x_new = gen_x(x_left, x_right)
         count += 1
-    print(f"{[(var, getattr(val, '__annotations__', '')) for var, val in vars().items()]}")
+    # print(f"{[(var, getattr(val, '__annotations__', '')) for var, val in vars().items()]}")
     return x_new, count
 
 
