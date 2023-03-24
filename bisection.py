@@ -28,7 +28,7 @@ def gen_x_middle(left: float, right: float) -> float:
 
 
 def gen_x_golden(left: float, right: float) -> float:
-    """Generate a new point to try as an arithmetic average of the last two points"""
+    """Generate a new point to try as a golden section between the last two points"""
     return left + (right - left) / golden
 
 
@@ -78,7 +78,7 @@ if __name__ == "__main__":
     result: float
     result, cnt = bisect(func, start, finish, accuracy)
     print(f"bisect({func.__doc__.split(':')[0]}, {start}, {finish}) = {result}; {cnt=}.")
-    result, cnt = bisect(func, start, finish, accuracy, gen_x_random)
-    print(f"bisect({func.__doc__.split(':')[0]}, {start}, {finish}) = {result}; {cnt=} random.")
     result, cnt = bisect(func, start, finish, accuracy, gen_x_golden)
     print(f"bisect({func.__doc__.split(':')[0]}, {start}, {finish}) = {result}; {cnt=} golden.")
+    result, cnt = bisect(func, start, finish, accuracy, gen_x_random)
+    print(f"bisect({func.__doc__.split(':')[0]}, {start}, {finish}) = {result}; {cnt=} random.")
