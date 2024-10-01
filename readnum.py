@@ -50,7 +50,7 @@ class ReadNumber:
     indexes = ("sign", "zeros", "value", "dot", "mantissa", "periodic", "left", "right", "exp", "rest")
 
 
-def main():
+def main() -> None:
     """Run a test"""
     for text in "+0045", "0.(3)", ".1e2":
         for name, pattern in ReadNumber.patterns.items():
