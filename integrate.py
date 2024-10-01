@@ -39,7 +39,7 @@ def simpson(y: np.ndarray, dx: float) -> float:
     """Integrate using Simpson's method. dx is length of the 3-point segments (2 half-points overlap)."""
     n: int = len(y)
     if not n % 2:
-        print(f"Even number of points is not recommended, use odd number of them: simpson({y}, {dx}).")
+        print(f"simpson({y}, {dx}): Even number of points is not recommended, use odd number of them.")
     s: float = (y[0] + y[-1] + y[1::2].sum() * 4.0 + y[2:-1:2].sum() * 2.0) * dx / 6.0
     return s
 
@@ -48,7 +48,7 @@ def simpson_3_8(y: np.ndarray, dx: float) -> float:
     """Integrate using Simpson's 3/8 method. dx is length of the 4-point segments (2 half-points overlap)."""
     n: int = len(y)
     if n % 3 != 1:
-        print(f"Wrong number of points {n} is not recommended, use 3*N+1 of them: simpson({y}, {dx}).")
+        print(f"simpson({y}, {dx}): Wrong number of points, {n} is not recommended, use 3*N+1 points.")
     s: float = (y[0] + y[-1] + (y[1::3].sum() + y[2::3].sum()) * 3.0 + y[3:-1:3].sum() * 2.0) * dx / 8.0
     return s
 
@@ -68,6 +68,7 @@ def main() -> None:
     # n = 200
     n_plus_1 = n + 1
     x, dx = np.linspace(a, b, n_plus_1, retstep=True)
+    dx = float(dx)
     shift = dx / 2.0
     x_s = np.linspace(a, b, 2 * n_plus_1 - 1)
     x_s38 = np.linspace(a, b, 3 * n_plus_1 - 2)
@@ -92,8 +93,8 @@ def main() -> None:
     r_rect = r_rectangles(y, dx)
     m_rect = m_rectangles(y_shifted, dx)
     s_simpson = simpson(y_simpson, dx)
-    s_simps38 = simpson_3_8(y_simp38, dx)
-    print(f"{l_rect=},\n{r_rect=},\n{m_rect=},\n{s_simpson=},\n{s_simps38=}.")
+    s_simpson38 = simpson_3_8(y_simp38, dx)
+    print(f"{l_rect=},\n{r_rect=},\n{m_rect=},\n{s_simpson=},\n{s_simpson38=}.")
     val = log(2)
     print(f"Actual value of ln(2) = {val}.")
 
