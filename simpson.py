@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 
-""""Демонстрация численного интегрирования методом Симпсона"""
+"""Демонстрация численного интегрирования методом Симпсона"""
 
 from math import log
 from collections.abc import Callable
@@ -33,7 +33,7 @@ def simpson(a: float, b: float, func: Callable[[float], float], n: int) -> float
 
 
 def funct(x: float) -> float:
-    """"Тестовая функция для численного интегрирования"""
+    """Тестовая функция для численного интегрирования"""
     try:
         return 1.0 / x
     except ArithmeticError as exc:
