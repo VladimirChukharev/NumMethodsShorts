@@ -38,7 +38,7 @@ def gen_x_random(left: float, right: float) -> float:
 
 
 def bisect(fun: Callable[[float], float], low: float, high: float, tolerance: float = 1e-9,
-           gen_x: Callable[[float, float], float] = None) -> (float, int):
+           gen_x: Callable[[float, float], float] = None) -> tuple[float, int]:
     """Binary dissection method of finding a root on the given segment"""
     if gen_x is None:
         gen_x = gen_x_middle
