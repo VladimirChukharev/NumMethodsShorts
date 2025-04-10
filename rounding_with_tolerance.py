@@ -78,25 +78,25 @@ def main() -> None:
     dig: float
     power: int
     samples = (0.0, 1.0, 0.1, 1e10, 1e-10, 1.1, 9.99, 1.9999e10, 1.9999e-10)
-    for i, num in enumerate(samples):
-        dig, power = first_digit_and_power(num)
-        print(f"{i}: {num=}, {dig=}, {power=}.")
+    for i, val in enumerate(samples):
+        dig, power = first_digit_and_power(val)
+        print(f"{i}: {val=}, {dig=}, {power=}.")
     for j in range(len(samples) + 1, 21):
         num: float = random.expovariate(1e-6)
         dig, power = first_digit_and_power(num)
         print(f"{j}: {num=}, {dig=}, {power=}, {digit_from_floating_point(num, power)=}.")
         if dig != digit_from_floating_point(num, power):
             print(f">>>>>>> {j}: {num=}, {dig=}, {power=}, {digit_from_floating_point(num, power)=}.")
-    num = 1234567890.1234567890
-    dig, power = first_digit_and_power(num)
-    print(f"\n{num=}, {dig=}, {power=}, {digit_from_floating_point(num, power)=}.")
+    numb = 1234567890.1234567890
+    dig, power = first_digit_and_power(numb)
+    print(f"\n{numb=}, {dig=}, {power=}, {digit_from_floating_point(numb, power)=}.")
     s = ""
     for i in range(10, -1, -1):
-        s += str(digit_from_floating_point(num, i))
+        s += str(digit_from_floating_point(numb, i))
     s += "."
     for i in range(-1, -11, -1):
-        s += str(digit_from_floating_point(num, i))
-    print(f"{num=} => {s=}, {all_digits(num)=}.")
+        s += str(digit_from_floating_point(numb, i))
+    print(f"{numb=} => {s=}, {all_digits(numb)=}.")
 
 
 if __name__ == "__main__":

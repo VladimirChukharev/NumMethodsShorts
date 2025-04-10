@@ -27,7 +27,7 @@ class ReadNumber:
                             (?P<sign>[-+]?)  # optional sign
                             (?P<zeros>0*)    # optional leading zeros
                             (?P<value>\d+)   # at least 1 digit
-                            (?P<rest>.*)     # should be empty for an intger number
+                            (?P<rest>.*)     # should be empty for an integer number
                         """, re.X),
                     q=re.compile(r"""
                             (?P<sign>[-+]?)  # optional sign
@@ -44,19 +44,29 @@ class ReadNumber:
                             (?P<value>\d*)   # digits
                             (?P<dot>\.?)     # optional dot
                             (?P<mantissa>\d*)  # digits, at least one in zeros, value, and/or mantissa
-                            (?P<exp>[eE][-+]?\d+)  # optional exponent part
-                            (?P<rest>.*)           # should be empty for a float number
+                            (?P<exp>([eE][-+]?\d+)?)  # optional exponent part
+                            (?P<rest>.*)     # should be empty for a float number
+                        """, re.X),
+                    g=re.compile(r"""
+                            (?P<sign>[-+]?)  # optional sign
+                            (?P<zeros>0*)    # optional leading zeros
+                            (?P<value>\d*)   # digits
+                            (?P<dot>\.?)     # optional dot
+                            (?P<mantissa>\d*)  # digits, at least one in zeros, value, and/or mantissa
+                            (?P<periodic>(?P<left>\()\d+(?P<right>\)))?  # optional periodic part
+                            (?P<exp>([eE][-+]?\d+)?)  # optional exponent part
+                            (?P<rest>.*)
                         """, re.X))
     indexes = ("sign", "zeros", "value", "dot", "mantissa", "periodic", "left", "right", "exp", "rest")
 
 
 def main() -> None:
     """Run a test"""
-    for text in "+0045", "0.(3)", ".1e2":
+    for text in "+0045", "-0045", "0.(3)", ".1e2", "0.1(9)", "12.":
         for name, pattern in ReadNumber.patterns.items():
-            print(f"{name=}")
-            if match_object := pattern.match(text):
-                print(f"For {text=}: {name} =>> {match_object.groupdict()=}.")
+            match_object = pattern.match(text)
+            if match_object and match_object['rest'] == '':
+                    print(f"For {text=}: {name} =>> {match_object.groupdict()}.")
 
 
 if __name__ == "__main__":
