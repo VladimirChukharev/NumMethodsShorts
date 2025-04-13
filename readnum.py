@@ -62,7 +62,7 @@ class ReadNumber:
 
 def main() -> None:
     """Run a test"""
-    for text in "+0045", "-0045", "0.(3)", ".1e2", "0.1(9)", "12.":
+    for text in "+0045", "-0045", "0.(3)", ".1e2", "0.1(9)", "12.", "-01.2(3)e-001":
         for name, pattern in ReadNumber.patterns.items():
             match_object = pattern.match(text)
             if match_object and match_object['rest'] == '':
