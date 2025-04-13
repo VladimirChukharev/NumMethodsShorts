@@ -6,7 +6,7 @@
 from random import uniform
 from typing import Callable
 
-from scipy.constants import golden
+from scipy.constants import golden  # type: ignore
 
 
 def func1(x: float) -> float:
