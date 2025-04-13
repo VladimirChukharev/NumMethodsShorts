@@ -2,7 +2,12 @@
     "cSpell.words": [
         "eigvals",
         "linalg",
+        "matplotlib",
         "ndarray",
-        "nevyazka"
+        "nevyazka",
+        "numpy",
+        "scipy",
+        "setuptools",
+        "sympy"
     ]
 }

@@ -11,7 +11,7 @@ Find the Lagrange polynomial for three given points.
 
 # import numpy as np
 # import matplotlib.pyplot as plt
-import sympy as sp
+import sympy as sp  # type: ignore
 
 
 def main() -> None:
@@ -31,9 +31,10 @@ def main() -> None:
     s = sp.simplify(sp.integrate(f, (x, a, b)))
     res = sp.simplify(s - (f0 + 4 * f1 + f2) * h / 3)
 
-    print(dir())
-    for item in x, x0, h, a0, a1, a2, a, b, c, f, f0, f1, f2, fd, s, res:
-        print(f"{item} = {item.expand()}.")
+    print(f"{dir() = }.")
+    for name, item in (("x", x), ("x0", x0), ("h", h), ("a0", a0), ("a1", a1), ("a2", a2), ("a", a), ("b", b), ("c", c),
+                ("f", f), ("f0", f0), ("f1", f1), ("f2", f2), ("fd", fd), ("s", s), ("res", res)):
+        print(f"{name}: {item} = {item.expand()}.")
 
 
 if __name__ == "__main__":
