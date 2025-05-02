@@ -66,7 +66,7 @@ def main() -> None:
         for name, pattern in ReadNumber.patterns.items():
             match_object = pattern.match(text)
             if match_object and match_object['rest'] == '':
-                    print(f"For {text=}: {name} =>> {match_object.groupdict()}.")
+                print(f"For {text=}: {name} =>> {match_object.groupdict()}.")
 
 
 if __name__ == "__main__":
