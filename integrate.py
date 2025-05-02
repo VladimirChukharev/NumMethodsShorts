@@ -67,8 +67,8 @@ def main() -> None:
     # a, b = -1.0, 1.0
     # n = 200
     n_plus_1 = n + 1
-    x, dx = np.linspace(a, b, n_plus_1, retstep=True)
-    dx = float(dx)
+    x, step = np.linspace(a, b, n_plus_1, retstep=True)
+    dx: float = float(step)
     shift = dx / 2.0
     x_s = np.linspace(a, b, 2 * n_plus_1 - 1)
     x_s38 = np.linspace(a, b, 3 * n_plus_1 - 2)
