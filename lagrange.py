@@ -8,7 +8,7 @@
 """Find Lagrange polynomial for given sets of points"""
 
 import numpy as np
-from scipy.interpolate import lagrange
+from scipy.interpolate import lagrange  # type: ignore
 from numpy.polynomial.polynomial import Polynomial
 import matplotlib.pyplot as plt
 
