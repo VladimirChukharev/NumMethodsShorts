@@ -12,18 +12,18 @@ import numpy as np
 from numpy import ndarray
 
 
-def find_pivot(ind: int, matrix: ndarray) -> [int, int, float]:
+def find_pivot(ind: int, matrix: ndarray) -> tuple[int, int, float]:
     """
     Find the biggest by absolute value element in matrix starting from matrix[ind][ind].
     Return indices and value of the found element (column, row, pivot).
-    Use NaN ('Not A Number' value) as pivot if all remaining elements are zeroes.
+    Use np.nan (NaN, 'Not a Number' value) as pivot if all remaining elements are zeroes.
     """
     col_l: int = 0
     row_l: int = 0
-    pivot_l: float = np.NaN
+    pivot_l: float = np.nan
     abs_piv: float = 0.0
-    for i_add, vect in enumerate(matrix[ind:]):
-        for j_add, elem in enumerate(vect[ind:]):
+    for i_add, col in enumerate(matrix[ind:]):
+        for j_add, elem in enumerate(col[ind:]):
             abs_elem: float = abs(elem)
             if abs_elem > abs_piv:
                 row_l, col_l, pivot_l, abs_piv = i_add, j_add, elem, abs_elem
@@ -46,7 +46,7 @@ def swap_cols(ind1: int, ind2: int, matrix: ndarray, inverse: ndarray, order: nd
         order[ind1], order[ind2] = order[ind2], order[ind1]
 
 
-def invert(mat: ndarray, row_order: ndarray, col_order: ndarray) -> (ndarray, ndarray, ndarray):
+def invert(mat: ndarray, row_order: ndarray, col_order: ndarray) -> ndarray:
     """Invert the matrix by Gauss method with full selection of the pivot element."""
     rows_l: int = len(mat)
     cols_l: int = len(mat[0])
