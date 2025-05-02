@@ -1,13 +1,18 @@
 {
     "cSpell.words": [
         "eigvals",
+        "Flagrange",
+        "Ftree",
+        "ipynb",
         "linalg",
+        "linestyle",
         "matplotlib",
         "ndarray",
         "nevyazka",
         "numpy",
         "scipy",
         "setuptools",
-        "sympy"
+        "sympy",
+        "urlpath"
     ]
 }
