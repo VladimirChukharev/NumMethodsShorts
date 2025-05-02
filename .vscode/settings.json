@@ -10,6 +10,7 @@
         "ndarray",
         "nevyazka",
         "numpy",
+        "retstep",
         "scipy",
         "setuptools",
         "sympy",
