@@ -15,5 +15,8 @@
         "setuptools",
         "sympy",
         "urlpath"
-    ]
+    ],
+    "editor.renderWhitespace": "all",
+    "files.trimTrailingWhitespaceInRegexAndStrings": false,
+    "diffEditor.ignoreTrimWhitespace": false
 }
