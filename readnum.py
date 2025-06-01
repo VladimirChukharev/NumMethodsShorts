@@ -60,13 +60,64 @@ class ReadNumber:
     indexes = ("sign", "zeros", "value", "dot", "mantissa", "periodic", "left", "right", "exp", "rest")
 
 
+def natural_int(match_object: re.Match[str]) -> int:
+    """Convert matched text to positive `int`"""
+    assert match_object["sign"] in ("", "+") and match_object["value"][0] in "123456789"
+
+    res: int = 0
+    for digit in match_object["value"]:
+        res = res * 10 + int(digit)
+    return res
+
+
+def nonnegative(match_object: re.Match[str]) -> int:
+    """Convert matched text to 0 or positive `int`"""
+    assert match_object["sign"] in ("", "+")
+
+    res: int = 0
+    for digit in match_object["value"]:
+        res = res * 10 + int(digit)
+    return res
+
+
+def integer_int(match_object: re.Match[str]) -> int:
+    """Convert matched text to `int`"""
+    assert match_object["sign"] in ("", "+", "-")
+
+    res: int = 0
+    for digit in match_object["value"]:
+        res = res * 10 + int(digit)
+    return -res if match_object["sign"] == "-" else res
+
+
+def rational_num(match_object: re.Match[str]) -> tuple[int, int]:  # FIXME
+    """Convert matched text to a rational as a pair of int (second is unsigned but stored as signed)"""
+    assert match_object["sign"] in ("", "+", "-")
+
+    res: int = 0
+    for digit in match_object["value"]:
+        res = res * 10 + int(digit)
+    return (-res, 1) if match_object["sign"] == "-" else (res, 1)
+
+
 def main() -> None:
     """Run a test"""
-    for text in "+0045", "-0045", "0.(3)", ".1e2", "0.1(9)", "12.", "-01.2(3)e-001":
+    for text in "+0045", "-0045", "0.(3)", ".1e2", "0.1(9)", "12.", "-01.2(3)e-001", "0":
         for name, pattern in ReadNumber.patterns.items():
             match_object = pattern.match(text)
             if match_object and match_object['rest'] == '':
                 print(f"For {text=}: {name} =>> {match_object.groupdict()}.")
+                match name:
+                    case "n":
+                        print(f"{natural_int(match_object)}")
+                    case "z0":
+                        print(f"{nonnegative(match_object)}")
+                    case "z":
+                        print(f"{integer_int(match_object)}")
+                    case "q":
+                        print(f"{rational_num(match_object)}")
+                    case _:
+                        pass # raise ValueError(f"Unknown key {name=}.")
 
 
 if __name__ == "__main__":
