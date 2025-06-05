@@ -2,6 +2,7 @@
 # -*- coding: utf8 -*-
 
 """Classify read numbers"""
+from functools import reduce
 from math import gcd
 import re
 
@@ -33,7 +34,7 @@ class ReadNumber:
                     q=re.compile(r"""
                             (?P<sign>[-+]?)  # optional sign
                             (?P<zeros>0*)    # optional leading zeros
-                            (?P<value>\d+)   # digits
+                            (?P<value>\d*)   # digits
                             (?P<dot>\.?)     # optional dot
                             (?P<mantissa>\d*)  # digits
                             (?P<periodic>(?P<left>\()\d+(?P<right>\)))?  # optional periodic part
@@ -80,13 +81,14 @@ def char2int(character: str) -> int:
 
 
 def str2natural(string: str) -> int:
-    """Convert a string of digits to a positive `int`"""
+    """Convert a string of digits to a non-negative `int`"""
     assert all((character in "0123456789" for character in string))
 
-    res: int = 0
-    for digit in string:
-        res = res * 10 + char2int(digit)
-    return res
+    return reduce(lambda x, y: 10*x+y, (char2int(digit) for digit in string), 0)
+    # res: int = 0
+    # for digit in string:
+    #     res = res * 10 + char2int(digit)
+    # return res
 
 
 def natural_int(match_object: re.Match[str]) -> int:
