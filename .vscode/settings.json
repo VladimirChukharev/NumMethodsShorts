@@ -19,5 +19,6 @@
     "editor.renderWhitespace": "all",
     "files.trimTrailingWhitespaceInRegexAndStrings": false,
     "diffEditor.ignoreTrimWhitespace": false,
-    "iis.configDir": ""
+    "iis.configDir": "",
+    "markdown-pdf.breaks": false
 }
