@@ -77,6 +77,7 @@ def main() -> None:
     # y_simpson = np.exp(x_s)
 
     y = 1.0 / x
+
     y_shifted = 1.0 / (x[:-1] + shift)
     y_simpson = 1.0 / x_s
     y_simp38 = 1.0 / x_s38
